@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://u6i3kdv8h8y7"]
+
+[ext_resource type="Script" uid="uid://ba4rngmkfigfa" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://u2ak6jyucjjo" path="res://camera_rig.gd" id="2_0xm2m"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0xm2m")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(2.5, 0, 0, 0, 0.1, 0, 0, 0, 2.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="Player" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 5, 5)
+script = ExtResource("2_0xm2m")
+target_path = NodePath("../Player")
+
+[node name="Camera" type="Camera3D" parent="CameraRig"]
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraRig/Camera"]
+target_position = Vector3(0, 0, -100)
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 5, 5, 5)
