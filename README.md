@@ -1,2 +1,2 @@
 # isometric-rpg
-Repository for an RPG Game made with Godot 4
+Repository for an Isometric RPG Game made with Godot 4
